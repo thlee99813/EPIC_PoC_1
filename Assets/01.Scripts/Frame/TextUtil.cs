@@ -1,90 +1,62 @@
 using System.Collections.Generic;
+using System.Collections;
+using System;
+using TMPro;
+using UnityEngine;
 public static class TextUtil
 {
-    /*public static string TranslateKorean(Gender g)
+    public static IEnumerator TypeText(TMP_Text targetText, string fullText, float charsPerSecond, Action onComplete = null)
     {
-        return g switch
+        if (targetText == null)
+            yield break;
+
+        targetText.text = fullText;
+        targetText.ForceMeshUpdate();
+
+        int totalChars = targetText.textInfo.characterCount;
+        targetText.maxVisibleCharacters = 0;
+
+        float delay = charsPerSecond <= 0f ? 0f : 1f / charsPerSecond;
+
+        if (delay <= 0f)
         {
-            Gender.Male => "남성",
-            Gender.Female => "여성",
-            _ => "알수없음"
-        };
+            targetText.maxVisibleCharacters = totalChars;
+            onComplete?.Invoke();
+            yield break;
+        }
+
+        WaitForSeconds wait = new WaitForSeconds(delay);
+
+        for (int i = 1; i <= totalChars; i++)
+        {
+            targetText.maxVisibleCharacters = i;
+            yield return wait;
+        }
+
+        onComplete?.Invoke();
+
     }
 
-    public static string TranslateKorean(TraitType t)
+    public static void ShowAll(TMP_Text targetText)
     {
-        return t switch
-        {
-            TraitType.Hikikomori => "히키코모리",
-            TraitType.Psychopath => "사이코패스",
-            TraitType.MisogynyMisandry => "성별 혐오",
-            TraitType.Depression => "우울증",
-            TraitType.Kind => "다정다감",
-            TraitType.Tough => "강인함",
-            TraitType.Diligent => "근면함",
-            TraitType.Optimistic => "낙천적",
-            TraitType.AllRounder => "만능형",
-            TraitType.Inept => "둔재",
-            TraitType.Artisan => "장인",
-            TraitType.Hunter => "사냥꾼",
-            TraitType.Chatterbox => "수다쟁이",
-            TraitType.Coward => "겁쟁이",
-            _ => t.ToString()
-        };
+        if (targetText == null)
+            return;
+
+        targetText.ForceMeshUpdate();
+        targetText.maxVisibleCharacters = targetText.textInfo.characterCount;
     }
 
-    public static string TranslateKorean(StatType s)
+    public static void Clear(TMP_Text targetText)
     {
-        return s switch
-        {
-            StatType.Combat => "전투",
-            StatType.Craft => "제작",
-            StatType.Build => "건축",
-            StatType.Gather => "수집",
-            StatType.Social => "매력",
-            _ => s.ToString()
-        };
-    }
-    public static string TranslateKorean(WeatherType weather)
-    {
-        return weather switch
-        {
-            WeatherType.Mild => "온화한 날씨가 지속됩니다",
-            WeatherType.Hot => "약한 더위가 발생합니다",
-            WeatherType.Cold => "약한 추위가 발생합니다",
-            WeatherType.Heatwave => "폭염이 내리쬡니다",
-            WeatherType.Drought => "가뭄이 발생합니다",
-            //WeatherType.Storm => "폭풍이 건물을 파괴합니다",
-            //eatherType.Flood => "홍수가 발생합니다",
-            //WeatherType.Snowstorm => "폭설이 내립니다",
-            WeatherType.ExtremeCold => "혹한이 다가옵니다",
-            _ => weather.ToString()
-        };
-    }
+        if (targetText == null)
+            return;
 
-    public static string TranslateKorean(WorldEventType worldEvent)
-    {
-        return worldEvent switch
-        {
-            WorldEventType.None => "아무 일도 없음",
-            WorldEventType.Visitor => "조우자 방문",
-            WorldEventType.Raid => "습격 발생",
-            _ => worldEvent.ToString()
-        };
+        targetText.text = string.Empty;
+        targetText.maxVisibleCharacters = 0;
     }
+    
 
-    public static string TranslateKorean(PolicyType policy)
-    {
-        return policy switch
-        {
-            PolicyType.CombatFirst => "전투 우선 정책",
-            PolicyType.CraftFirst => "제작 우선 정책",
-            PolicyType.BuildFirst => "건축 우선 정책",
-            PolicyType.GatherFirst => "수집 우선 정책",
-            PolicyType.SocialFirst => "사교 우선 정책",
-            _ => policy.ToString()
-        };
-    }*/
+    //조사 나눠지는부분
 
     private static readonly Dictionary<string, KeyValuePair<string, string>> _koreanParticles
     = new Dictionary<string, KeyValuePair<string, string>>
