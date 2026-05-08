@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class MainMenuController : MonoBehaviour
 {
     [Header("Main Panels")]
+    [SerializeField] private GameObject _mainPanel;
+
     [SerializeField] private GameObject _mainMenuCore;
     [SerializeField] private GameObject _observePanel;
     [SerializeField] private GameObject _biblePanel;
@@ -55,12 +57,17 @@ public class MainMenuController : MonoBehaviour
         _biblePanel.SetActive(false);
         _caseDialogueView.Hide();
     }
+    public void ToggleMainPanel()
+    {
+        TogglePanel(_mainPanel);
+        _mainPanel.SetActive(false);
+    }
 
     public void ToggleObservePanel()
     {
         TogglePanel(_observePanel);
     }
-
+    
     public void ToggleBiblePanel()
     {
         TogglePanel(_biblePanel);
