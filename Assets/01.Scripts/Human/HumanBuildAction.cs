@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(HumanAgent))]
@@ -6,6 +5,8 @@ public class HumanBuildAction : HumanAction
 {
     [SerializeField] private int _priority = 40;
     [SerializeField] private float _buildPowerPerSecond = 1f;
+[SerializeField, Range(0f, 1f)] private float _buildChance = 0.4f;
+
 
     public override int Priority => _priority;
     public override string StatusText => _isBuilding ? HumanActionTextTable.BuildingHouse : HumanActionTextTable.MovingToBuildHouse;
@@ -19,8 +20,20 @@ public class HumanBuildAction : HumanAction
         if (Agent.SettlementContext.GetAvailableBuildingSite(transform.position) != null)
             return true;
 
-        return Agent.SettlementContext.Storage.HasEnough(ResourceType.Wood, Agent.SettlementContext.HouseDefinition.WoodCost);
+        int humanCount = Agent.TickSystem.AgentCount;
+        int houseCapacity = Agent.SettlementContext.HouseRegistry.TotalCapacity;
+
+        int freeCapacity = houseCapacity - humanCount;
+
+        if (freeCapacity >= 1)
+            return false;
+
+        if (!Agent.SettlementContext.Storage.HasEnough(ResourceType.Wood, Agent.SettlementContext.HouseDefinition.WoodCost))
+            return false;
+
+        return Random.value < _buildChance;
     }
+
 
     public override void Begin()
     {

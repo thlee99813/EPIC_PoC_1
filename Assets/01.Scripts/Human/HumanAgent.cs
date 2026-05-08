@@ -10,15 +10,18 @@ public class HumanAgent : MonoBehaviour
 
     public HumanDefinition Definition => _definition;
     public SettlementContext SettlementContext => _settlementContext;
+    public SimulationTickSystem TickSystem => _tickSystem;
     public HumanRuntimeStats Stats => _stats;
     public string CurrentActionName => _currentActionName;
+    private bool _hasStatsInitialized;
+
+
 
 
     private HumanRuntimeStats _stats;
     private HumanAction[] _actions;
     private HumanAction _currentAction;
     private float _decisionTimer;
-    
     public void Initialize(SettlementContext settlementContext, SimulationTickSystem tickSystem)
     {
         _settlementContext = settlementContext;
@@ -26,6 +29,17 @@ public class HumanAgent : MonoBehaviour
 
         RegisterToTickSystem();
     }
+    public void Initialize(SettlementContext settlementContext, SimulationTickSystem tickSystem, float initialAge)
+    {
+        _settlementContext = settlementContext;
+        _tickSystem = tickSystem;
+
+        _stats.Initialize(_definition, initialAge);
+        _hasStatsInitialized = true;
+
+        RegisterToTickSystem();
+    }
+
 
     private void Awake()
     {
@@ -55,9 +69,13 @@ public class HumanAgent : MonoBehaviour
 
     private void Start()
     {
-        _stats.Initialize(_definition);
-        _decisionTimer = Random.Range(0f, _definition.DecisionInterval);
+        if (!_hasStatsInitialized)
+            _stats.Initialize(_definition);
+
+        ResetDecisionTimer();
     }
+
+
 
     public void SimulationTick(float deltaTime)
     {
@@ -66,13 +84,23 @@ public class HumanAgent : MonoBehaviour
 
         _stats.Tick(_definition, deltaTime);
 
+        if (_stats.IsDead)
+        {
+            if (_currentAction != null)
+                EndCurrentAction();
+
+            gameObject.SetActive(false);
+            return;
+        }
+
         _decisionTimer -= deltaTime;
 
         if (_decisionTimer <= 0f)
         {
-            _decisionTimer = _definition.DecisionInterval;
+            ResetDecisionTimer();
             TryInterruptCurrentAction();
         }
+
 
         if (_currentAction != null)
         {
@@ -85,8 +113,8 @@ public class HumanAgent : MonoBehaviour
             EndCurrentAction();
         }
 
-
         SelectNextAction();
+
     }
     private void TryInterruptCurrentAction()
     {
@@ -153,6 +181,11 @@ public class HumanAgent : MonoBehaviour
         _currentAction = null;
         _currentActionName = string.Empty;
     }
+    private void ResetDecisionTimer()
+    {
+        _decisionTimer = Random.Range(_definition.DecisionInterval * 0.7f, _definition.DecisionInterval * 1.3f);
+    }
+
 
 
 }

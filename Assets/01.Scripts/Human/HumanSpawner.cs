@@ -32,4 +32,12 @@ public class HumanSpawner : MonoBehaviour
             SpawnHuman(spawnPoint.position);
         }
     }
+    public HumanAgent SpawnChild(Vector3 position)
+    {
+        HumanAgent human = Instantiate(_humanPrefab, position, Quaternion.identity);
+        human.Initialize(_settlementContext, _tickSystem, 0f);
+        _statusLabelSystem.ShowLabel(human);
+        return human;
+    }
+
 }

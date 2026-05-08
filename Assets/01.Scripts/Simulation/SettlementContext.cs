@@ -11,11 +11,19 @@ public class SettlementContext : MonoBehaviour
 
     [SerializeField] private BuildingDefinition _houseDefinition;
     [SerializeField] private float _buildingMinDistance = 20f;
+    [SerializeField] private HumanSpawner _humanSpawner;
+    [SerializeField] private SimulationTickSystem _tickSystem;
+
+
 
 
     public ResourceStorage Storage => _storage;
     public HouseRegistry HouseRegistry => _houseRegistry;
     public BuildingDefinition HouseDefinition => _houseDefinition;
+    public HumanSpawner HumanSpawner => _humanSpawner;
+    public SimulationTickSystem TickSystem => _tickSystem;
+
+
 
 
 

@@ -4,6 +4,33 @@ using UnityEngine;
 public class HouseRegistry : MonoBehaviour
 {
     private readonly List<House> _houses = new List<House>();
+    public bool HasVacancy => TotalResidentCount < TotalCapacity;
+
+    public int TotalCapacity
+    {
+        get
+        {
+            int capacity = 0;
+
+            for (int i = 0; i < _houses.Count; i++)
+                capacity += _houses[i].Capacity;
+
+            return capacity;
+        }
+    }
+
+    public int TotalResidentCount
+    {
+        get
+        {
+            int residentCount = 0;
+
+            for (int i = 0; i < _houses.Count; i++)
+                residentCount += _houses[i].ResidentCount;
+
+            return residentCount;
+        }
+    }
 
     public void Register(House house)
     {

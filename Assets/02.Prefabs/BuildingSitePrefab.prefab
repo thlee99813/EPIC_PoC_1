@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1201a2aa4ab98e40b15750c6487036a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::House
-  _capacity: 2
+  _capacity: 3
   _wanderRadius: 4
 --- !u!1 &7741273497431436851
 GameObject:

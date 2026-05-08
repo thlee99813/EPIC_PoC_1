@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7963774442082930716}
   - component: {fileID: 3285273021779950434}
   - component: {fileID: 8901617734655879607}
+  - component: {fileID: -2927076764518168305}
   - component: {fileID: 2913644459531367286}
   - component: {fileID: 2623950614358951408}
   - component: {fileID: 8782867000411428885}
@@ -215,6 +216,21 @@ MonoBehaviour:
   _hunger: 0
   _age: 0
   _isDead: 0
+  _reproductionCooldownTimer: 0
+--- !u!114 &-2927076764518168305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571664086958160129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff374dc10c95e64eae9cc50412a2103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HumanReproduceAction
+  _priority: 25
+  _reproduceChance: 0.3
 --- !u!114 &2913644459531367286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HumanBuildAction
   _priority: 40
   _buildPowerPerSecond: 1
+  _buildChance: 0.25
 --- !u!114 &8782867000411428885
 MonoBehaviour:
   m_ObjectHideFlags: 0

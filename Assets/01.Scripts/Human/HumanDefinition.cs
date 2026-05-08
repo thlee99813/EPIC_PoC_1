@@ -17,6 +17,16 @@ public class HumanDefinition : ScriptableObject
     [SerializeField] private float _decisionInterval = 0.5f;
     [SerializeField] private float _interactDistance = 0.2f;
 
+    [SerializeField] private Vector2 _initialAgeRange = new Vector2(18f, 35f);
+    [SerializeField] private float _adultAge = 18f;
+    [SerializeField] private float _maxAge = 70f;
+    [SerializeField] private float _ageIncreasePerSecond = 0.01f;
+
+    [SerializeField] private int _reproductionFoodCost = 5;
+    [SerializeField] private float _reproductionDuration = 8f;
+    [SerializeField] private float _reproductionCooldown = 30f;
+
+
     public float MaxHealth => _maxHealth;
     public float MaxHunger => _maxHunger;
     public float HungerIncreasePerSecond => _hungerIncreasePerSecond;
@@ -31,5 +41,15 @@ public class HumanDefinition : ScriptableObject
     public float DecisionInterval => _decisionInterval;
     public float InteractDistance => _interactDistance;
     public Vector2 InitialHungerRange => _initialHungerRange;
+
+    public Vector2 InitialAgeRange => _initialAgeRange;
+    public float AdultAge => _adultAge;
+    public float MaxAge => _maxAge;
+    public float AgeIncreasePerSecond => _ageIncreasePerSecond;
+
+    public int ReproductionFoodCost => _reproductionFoodCost;
+    public float ReproductionDuration => _reproductionDuration;
+    public float ReproductionCooldown => _reproductionCooldown;
+
 
 }

@@ -9,6 +9,22 @@ public class SimulationTickSystem : MonoBehaviour
     private readonly Dictionary<HumanAgent, float> _lastTickTimes = new Dictionary<HumanAgent, float>();
 
     private int _nextAgentIndex;
+    public int AgentCount => _agents.Count;
+    public int GetAdultAgentCount(HumanDefinition definition)
+    {
+        int count = 0;
+
+        for (int i = 0; i < _agents.Count; i++)
+        {
+            HumanAgent agent = _agents[i];
+
+            if (!agent.Stats.IsDead && agent.Stats.Age >= definition.AdultAge)
+                count++;
+        }
+
+        return count;
+    }
+
 
     public void Register(HumanAgent agent)
     {
