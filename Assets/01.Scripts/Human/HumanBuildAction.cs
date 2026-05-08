@@ -5,7 +5,8 @@ public class HumanBuildAction : HumanAction
 {
     [SerializeField] private int _priority = 40;
     [SerializeField] private float _buildPowerPerSecond = 1f;
-[SerializeField, Range(0f, 1f)] private float _buildChance = 0.4f;
+    [SerializeField, Range(0f, 1f)] private float _buildChance = 0.4f;
+
 
 
     public override int Priority => _priority;

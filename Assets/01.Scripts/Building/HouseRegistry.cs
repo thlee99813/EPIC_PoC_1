@@ -4,8 +4,7 @@ using UnityEngine;
 public class HouseRegistry : MonoBehaviour
 {
     private readonly List<House> _houses = new List<House>();
-    public bool HasVacancy => TotalResidentCount < TotalCapacity;
-
+    public bool HasVacancy => GetNearestVacantHouse(Vector3.zero) != null;
     public int TotalCapacity
     {
         get

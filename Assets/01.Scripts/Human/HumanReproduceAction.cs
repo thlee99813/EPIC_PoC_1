@@ -37,7 +37,7 @@ public class HumanReproduceAction : HumanAction
             return false;
 
         if (!Agent.SettlementContext.HouseRegistry.HasVacancy)
-        return false;
+            return false;
 
         if (Agent.TickSystem.GetAdultAgentCount(Agent.Definition) < 2)
             return false;
