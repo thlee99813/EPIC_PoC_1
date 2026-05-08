@@ -10,7 +10,8 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject _mainMenuCore;
     [SerializeField] private GameObject _observePanel;
     [SerializeField] private GameObject _biblePanel;
-
+    [Header("Simulation")]
+    [SerializeField] private SimulationObservationController _simulationObservationController;
     [Header("Dialogue")]
     [SerializeField] private InputActionReference _advanceAction;
 
@@ -79,9 +80,18 @@ public class MainMenuController : MonoBehaviour
 
     public void ToggleObservePanel()
     {
-        _hasEnteredObserve = true;
+        if (_settlementDoctrine.CurrentDoctrine == DoctrineType.None)
+            return;
+
+        if (!_hasEnteredObserve)
+        {
+            _hasEnteredObserve = true;
+            _simulationObservationController.StartObservation();
+        }
+
         TogglePanel(_observePanel);
     }
+
     
     public void ToggleBiblePanel()
     {
