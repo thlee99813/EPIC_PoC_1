@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(HumanAgent))]
@@ -70,4 +71,5 @@ public class HumanBuildAction : HumanAction
         _targetSite = null;
         _isBuilding = false;
     }
+
 }

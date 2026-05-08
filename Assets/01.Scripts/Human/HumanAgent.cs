@@ -90,7 +90,7 @@ public class HumanAgent : MonoBehaviour
     }
     private void TryInterruptCurrentAction()
     {
-        if (_currentAction == null)
+        if (_currentAction == null || !_currentAction.CanBeInterrupted)
             return;
 
         HumanAction betterAction = GetBestRunnableAction();
@@ -104,6 +104,7 @@ public class HumanAgent : MonoBehaviour
         EndCurrentAction();
         StartAction(betterAction);
     }
+
 
 
 

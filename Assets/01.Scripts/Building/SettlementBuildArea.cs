@@ -3,6 +3,8 @@ using UnityEngine;
 public class SettlementBuildArea : MonoBehaviour
 {
     [SerializeField] private BoxCollider[] _buildAreas;
+    [SerializeField] private float _groundY = 0f;
+
 
     public bool TryGetRandomBuildPosition(float minDistance, Vector3[] occupiedPositions, out Vector3 position)
     {
@@ -31,7 +33,7 @@ public class SettlementBuildArea : MonoBehaviour
         float x = Random.Range(bounds.min.x, bounds.max.x);
         float z = Random.Range(bounds.min.z, bounds.max.z);
 
-        return new Vector3(x, area.transform.position.y, z);
+        return new Vector3(x, _groundY, z);
     }
 
     private bool IsFarEnough(Vector3 candidate, float minDistance, Vector3[] occupiedPositions)

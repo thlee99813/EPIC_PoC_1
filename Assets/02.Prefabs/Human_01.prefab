@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HumanGatherAction
   _foodTargetAmount: 5
-  _woodTargetAmount: 9
+  _woodTargetAmount: 7
   _foodNeededPriority: 50
   _woodNeededPriority: 50
   _foodSurplusPriority: -20

@@ -18,9 +18,12 @@ public class HumanGatherAction : HumanAction
     public override int Priority => GetPriority();
 
     private ResourceType _targetResourceType;
+    private ResourceType _cachedResourceType;
     private ResourceNode _targetNode;
     private Vector3 _targetGatherPosition;
     private int _carriedAmount;
+    private bool _hasCachedDecision;
+
 
     private bool _isDelivering;
     private bool _isGathering;
@@ -30,21 +33,23 @@ public class HumanGatherAction : HumanAction
 
     public override bool CanRun()
     {
-        return TrySelectResourceType(out ResourceType resourceType);
+        _hasCachedDecision = TrySelectResourceType(out _cachedResourceType);
+        return _hasCachedDecision;
     }
+
 
    public override void Begin()
     {
         _hasTarget = false;
-        _targetNode = null;
         _carriedAmount = 0;
         _isDelivering = false;
         _isGathering = false;
         _gatherTimer = Agent.Definition.GatherDuration;
 
-        if (!TrySelectResourceType(out _targetResourceType))
+        if (!_hasCachedDecision)
             return;
 
+        _targetResourceType = _cachedResourceType;
         _targetNode = Agent.SettlementContext.GetNearestResource(transform.position, _targetResourceType);
 
         if (_targetNode == null)
@@ -56,9 +61,13 @@ public class HumanGatherAction : HumanAction
 
 
 
+
+
     public override bool Tick(float deltaTime)
     {
         if (!_hasTarget) return true;
+        if (_targetNode == null)
+        return true;
 
         if (_isDelivering)
         {
@@ -95,13 +104,23 @@ public class HumanGatherAction : HumanAction
         return false;
 
     }
+    public override void End()
+    {
+        _hasCachedDecision = false;
+        _hasTarget = false;
+        _targetNode = null;
+        _isDelivering = false;
+        _isGathering = false;
+    }
+
+
 
     private int GetPriority()
     {
-        if (!TrySelectResourceType(out ResourceType resourceType))
+        if (!_hasCachedDecision)
             return int.MinValue;
 
-        if (resourceType == ResourceType.Food)
+        if (_cachedResourceType == ResourceType.Food)
             return IsNeeded(ResourceType.Food) ? _foodNeededPriority : _foodSurplusPriority;
 
         return IsNeeded(ResourceType.Wood) ? _woodNeededPriority : _woodSurplusPriority;

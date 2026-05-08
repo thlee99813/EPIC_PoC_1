@@ -15,6 +15,8 @@ public class HumanIdleAction : HumanAction
 
 
     public override int Priority => _priority;
+    public override bool CanBeInterrupted => true;
+
     public override string StatusText => _isResting ? HumanActionTextTable.Resting : HumanActionTextTable.Wandering;
 
 

@@ -91,8 +91,9 @@ public class BuildingSite : MonoBehaviour
     public Vector3 GetRandomInteractionPosition()
     {
         Vector2 randomCircle = Random.insideUnitCircle * _definition.InteractionRadius;
-        return transform.position + new Vector3(randomCircle.x, 0f, randomCircle.y);
+        return new Vector3(transform.position.x + randomCircle.x, 0f, transform.position.z + randomCircle.y);
     }
+
     private void OnDestroy()
     {
         if (_registry != null)
