@@ -23,7 +23,29 @@ public class DialogueSequencePlayer : MonoBehaviour
         SetNextArrow(false);
 
         if (_playOnStart)
-            ShowNextLine();
+            Play(_dialogueSequence);
+    }
+    public void Play(DialogueSequenceData dialogueSequence)
+    {
+        _dialogueSequence = dialogueSequence;
+        ResetPlayer();
+        ShowNextLine();
+    }
+
+    private void ResetPlayer()
+    {
+        if (_typingCoroutine != null)
+        {
+            StopCoroutine(_typingCoroutine);
+            _typingCoroutine = null;
+        }
+
+        _currentLineIndex = 0;
+        _isTyping = false;
+        _isCompleted = false;
+
+        TextUtil.Clear(_dialogueText);
+        SetNextArrow(false);
     }
 
     public void Advance()
@@ -65,15 +87,9 @@ public class DialogueSequencePlayer : MonoBehaviour
 
         _isTyping = false;
         _typingCoroutine = null;
-
-        if (_currentLineIndex >= _dialogueSequence.Lines.Length)
-        {
-            CompleteDialogue();
-            yield break;
-        }
-
         SetNextArrow(true);
     }
+
 
     private void CompleteCurrentLine()
     {
@@ -85,15 +101,9 @@ public class DialogueSequencePlayer : MonoBehaviour
 
         TextUtil.ShowAll(_dialogueText);
         _isTyping = false;
-
-        if (_currentLineIndex >= _dialogueSequence.Lines.Length)
-        {
-            CompleteDialogue();
-            return;
-        }
-
         SetNextArrow(true);
     }
+
 
     private void CompleteDialogue()
     {

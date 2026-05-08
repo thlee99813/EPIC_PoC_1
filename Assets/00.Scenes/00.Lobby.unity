@@ -784,7 +784,7 @@ MonoBehaviour:
   _dialogueText: {fileID: 212065239}
   _nextArrow: {fileID: 228620781}
   _dialogueSequence: {fileID: 11400000, guid: 33a7729f72a16514a9b50560284c668a, type: 2}
-  _charsPerSecond: 15
+  _charsPerSecond: 25
   _playOnStart: 1
 --- !u!1 &1712952120
 GameObject:
