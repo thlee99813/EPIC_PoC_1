@@ -17,6 +17,9 @@ public class SimulationTickSystem : MonoBehaviour
     private int _nextEnemyIndex;
     private void Update()
     {
+        if (Time.timeScale <= 0f)
+            return;
+
         int tickCount = Mathf.Min(_agentsPerFrame, _agents.Count);
 
         for (int i = 0; i < tickCount; i++)
@@ -27,6 +30,7 @@ public class SimulationTickSystem : MonoBehaviour
         for (int i = 0; i < enemyTickCount; i++)
             TickNextEnemy();
     }
+
 
     
 

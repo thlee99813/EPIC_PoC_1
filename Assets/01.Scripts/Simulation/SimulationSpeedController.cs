@@ -11,7 +11,7 @@ public class SimulationSpeedController : MonoBehaviour
 
     private void Start()
     {
-        SetDefaultSpeed();
+        SetPaused();
     }
 
     public void SetPaused()
@@ -42,8 +42,9 @@ public class SimulationSpeedController : MonoBehaviour
     public void SetSpeed(float speed)
     {
         Time.timeScale = speed;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        Time.fixedDeltaTime = speed <= 0f ? 0.02f : 0.02f * speed;
     }
+
 
     private void OnDestroy()
     {

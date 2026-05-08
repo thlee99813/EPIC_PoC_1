@@ -29,7 +29,8 @@ public class HumanAttackEnemyAction : HumanAction
         if (!_sensor.HasThreat)
             return false;
 
-        return Random.value < _fightChance;
+        float fightChance = _fightChance * Agent.SettlementContext.CivilizationModifier.FightChanceMultiplier;
+        return Random.value < fightChance;
     }
 
     public override void Begin()

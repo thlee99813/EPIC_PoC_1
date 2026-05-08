@@ -191,7 +191,10 @@ public class HumanGatherAction : HumanAction
     private bool ShouldWork(ResourceType resourceType)
     {
         float chance = IsNeeded(resourceType) ? _workChanceWhenNeeded : _workChanceWhenSurplus;
+        chance *= Agent.SettlementContext.CivilizationModifier.GatherChanceMultiplier;
+
         return Random.value < chance;
     }
+
 
 }

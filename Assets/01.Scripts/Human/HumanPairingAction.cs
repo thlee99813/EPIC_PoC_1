@@ -20,8 +20,8 @@ public class HumanPairingAction : HumanAction
     public override string StatusText => _isStaying ? HumanActionTextTable.PairingStaying : HumanActionTextTable.MovingToPairing;
     [SerializeField] private int _minInterruptPriority = 100;
 
-public override bool CanBeInterrupted => true;
-public override int MinInterruptPriority => _minInterruptPriority;
+    public override bool CanBeInterrupted => true;
+    public override int MinInterruptPriority => _minInterruptPriority;
 
 
 
@@ -48,7 +48,8 @@ public override int MinInterruptPriority => _minInterruptPriority;
         if (Agent.TickSystem.GetAvailablePairingPartner(Agent, Agent.Definition) == null)
             return false;
 
-        return Random.value < _pairingChance;
+        float pairingChance = _pairingChance * Agent.SettlementContext.CivilizationModifier.PairingChanceMultiplier;
+        return Random.value < pairingChance;
     }
 
     public override void Begin()

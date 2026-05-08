@@ -28,7 +28,8 @@ public class HumanFleeAction : HumanAction
         if (!_sensor.HasThreat)
             return false;
 
-        return Random.value < _fleeChance;
+        float fleeChance = _fleeChance * Agent.SettlementContext.CivilizationModifier.FleeChanceMultiplier;
+        return Random.value < fleeChance;
     }
 
     public override void Begin()

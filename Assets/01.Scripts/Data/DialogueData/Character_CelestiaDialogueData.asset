@@ -16,3 +16,7 @@ MonoBehaviour:
   _characterSprite: {fileID: 21300000, guid: eb50b840653182146b34f9dbf5b336a8, type: 3}
   _dialogueBoxSprite: {fileID: 895447953, guid: 1bee5d51f3920324781bcb3c58354b09, type: 3}
   _dialogueSequence: {fileID: 11400000, guid: 83761fad0df4cef4bb26b064cbef5597, type: 2}
+  _doctrineType: 3
+  _doctrineProposalText: "\uD574\uBC29 \uAD50\uB9AC\uB97C \uC120\uD0DD\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\r\n\r\n-
+    \uCC44\uC9D1 \uD655\uB960\uC774 15% \uC62C\uB77C\uAC11\uB2C8\uB2E4.\r\n- \uC804\uD22C
+    \uD655\uB960\uC774 10% \uC62C\uB77C\uAC11\uB2C8\uB2E4."

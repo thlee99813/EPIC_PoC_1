@@ -18,6 +18,12 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private CaseDialogueData _celestiaDialogueData;
     [SerializeField] private CaseDialogueData _beatriceDialogueData;
     [SerializeField] private CaseDialogueData _leticiaDialogueData;
+    [SerializeField] private DoctrineConfirmView _doctrineConfirmView;
+    [SerializeField] private SettlementDoctrine _settlementDoctrine;
+
+    private CaseDialogueData _currentDialogueData;
+    private bool _hasEnteredObserve;
+
 
     private GameObject _currentActivePanel;
 
@@ -29,7 +35,10 @@ public class MainMenuController : MonoBehaviour
         _advanceAction.action.performed += OnAdvancePerformed;
         _advanceAction.action.Enable();
 
-        _caseDialogueView.Completed += CloseCaseDialogue;
+        _caseDialogueView.Completed += OnCaseDialogueCompleted;
+        _doctrineConfirmView.Accepted += OnDoctrineAccepted;
+        _doctrineConfirmView.Declined += OnDoctrineDeclined;
+
     }
 
     private void OnDisable()
@@ -37,7 +46,10 @@ public class MainMenuController : MonoBehaviour
         _advanceAction.action.performed -= OnAdvancePerformed;
         _advanceAction.action.Disable();
 
-        _caseDialogueView.Completed -= CloseCaseDialogue;
+        _caseDialogueView.Completed -= OnCaseDialogueCompleted;
+        _doctrineConfirmView.Accepted -= OnDoctrineAccepted;
+        _doctrineConfirmView.Declined -= OnDoctrineDeclined;
+
     }
 
     private void OnAdvancePerformed(InputAction.CallbackContext context)
@@ -56,6 +68,8 @@ public class MainMenuController : MonoBehaviour
         _observePanel.SetActive(false);
         _biblePanel.SetActive(false);
         _caseDialogueView.Hide();
+        _doctrineConfirmView.Hide();
+
     }
     public void ToggleMainPanel()
     {
@@ -65,6 +79,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ToggleObservePanel()
     {
+        _hasEnteredObserve = true;
         TogglePanel(_observePanel);
     }
     
@@ -119,7 +134,7 @@ public class MainMenuController : MonoBehaviour
         _mainMenuCore.SetActive(false);
         _isCaseDialogueOpen = true;
         _caseDialogueInputUnlockTime = Time.unscaledTime + 0.1f;
-
+        _currentDialogueData = dialogueData;
         _caseDialogueView.Show(dialogueData);
     }
 
@@ -132,4 +147,28 @@ public class MainMenuController : MonoBehaviour
 
         _currentActivePanel = null;
     }
+    private void OnCaseDialogueCompleted()
+    {
+        if (!_hasEnteredObserve && _settlementDoctrine.CurrentDoctrine == DoctrineType.None)
+        {
+            _doctrineConfirmView.Show(_currentDialogueData.DoctrineProposalText);
+            return;
+        }
+
+        CloseCaseDialogue();
+    }
+
+    private void OnDoctrineAccepted()
+    {
+        _settlementDoctrine.SetDoctrine(_currentDialogueData.DoctrineType);
+        _doctrineConfirmView.Hide();
+        CloseCaseDialogue();
+    }
+
+    private void OnDoctrineDeclined()
+    {
+        _doctrineConfirmView.Hide();
+        CloseCaseDialogue();
+    }
+
 }

@@ -13,6 +13,10 @@ public class SettlementContext : MonoBehaviour
     [SerializeField] private float _buildingMinDistance = 20f;
     [SerializeField] private HumanSpawner _humanSpawner;
     [SerializeField] private SimulationTickSystem _tickSystem;
+    [SerializeField] private CivilizationStats _civilizationStats;
+    [SerializeField] private SettlementDoctrine _settlementDoctrine;
+    [SerializeField] private CivilizationModifier _civilizationModifier;
+
 
 
 
@@ -22,6 +26,10 @@ public class SettlementContext : MonoBehaviour
     public BuildingDefinition HouseDefinition => _houseDefinition;
     public HumanSpawner HumanSpawner => _humanSpawner;
     public SimulationTickSystem TickSystem => _tickSystem;
+    public CivilizationStats CivilizationStats => _civilizationStats;
+    public SettlementDoctrine SettlementDoctrine => _settlementDoctrine;
+    public CivilizationModifier CivilizationModifier => _civilizationModifier;
+
 
 
 

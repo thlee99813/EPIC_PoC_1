@@ -25,13 +25,14 @@ public static class TextUtil
             yield break;
         }
 
-        WaitForSeconds wait = new WaitForSeconds(delay);
+        WaitForSecondsRealtime wait = new WaitForSecondsRealtime(delay);
 
         for (int i = 1; i <= totalChars; i++)
         {
             targetText.maxVisibleCharacters = i;
             yield return wait;
         }
+
 
         onComplete?.Invoke();
 
