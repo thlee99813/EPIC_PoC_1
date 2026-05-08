@@ -3,9 +3,11 @@ using UnityEngine;
 [RequireComponent(typeof(HumanAgent))]
 public class HumanEatAction : HumanAction
 {
+    [SerializeField] private int _priority = 100;
     [SerializeField] private float _hungerThreshold = 70f;
 
-    public override int Priority => 100;
+    public override int Priority => _priority;
+
     public override string StatusText => _isEating ? HumanActionTextTable.EatingFood : HumanActionTextTable.MovingToEatFood;
 
     private bool _isEating;

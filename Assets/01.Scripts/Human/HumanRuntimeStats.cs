@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HumanRuntimeStats : MonoBehaviour
+public class HumanRuntimeStats : MonoBehaviour, IDamageable
 {
     [SerializeField] private float _health;
     [SerializeField] private float _hunger;
@@ -50,6 +50,14 @@ public class HumanRuntimeStats : MonoBehaviour
     {
         _hunger = Mathf.Max(0f, _hunger - amount);
     }
+    public void TakeDamage(float damage)
+    {
+        _health -= damage;
+
+        if (_health <= 0f)
+            _isDead = true;
+    }
+
     public bool CanReproduce(HumanDefinition definition)
     {
         return !_isDead && _age >= definition.AdultAge && _reproductionCooldownTimer <= 0f;

@@ -14,9 +14,7 @@ public class HumanAgent : MonoBehaviour
     public HumanRuntimeStats Stats => _stats;
     public string CurrentActionName => _currentActionName;
     private bool _hasStatsInitialized;
-
-
-
+    private bool _isDeathHandled;
 
     private HumanRuntimeStats _stats;
     private HumanAction[] _actions;
@@ -80,16 +78,16 @@ public class HumanAgent : MonoBehaviour
     public void SimulationTick(float deltaTime)
     {
         if (_stats.IsDead)
+        {
+            Die();
             return;
+        }
 
         _stats.Tick(_definition, deltaTime);
 
         if (_stats.IsDead)
         {
-            if (_currentAction != null)
-                EndCurrentAction();
-
-            gameObject.SetActive(false);
+            Die();
             return;
         }
 
@@ -129,8 +127,14 @@ public class HumanAgent : MonoBehaviour
         if (betterAction.Priority <= _currentAction.Priority)
             return;
 
+
+        if (betterAction.Priority < _currentAction.MinInterruptPriority)
+            return;
+
         EndCurrentAction();
         StartAction(betterAction);
+
+
     }
 
 
@@ -185,6 +189,25 @@ public class HumanAgent : MonoBehaviour
     {
         _decisionTimer = Random.Range(_definition.DecisionInterval * 0.7f, _definition.DecisionInterval * 1.3f);
     }
+    private void Die()
+    {
+        if (_isDeathHandled)
+        return;
+
+        _isDeathHandled = true;
+        if (_currentAction != null)
+            EndCurrentAction();
+
+        HumanPairingState pairingState = GetComponent<HumanPairingState>();
+
+        if (pairingState.HasPairing && pairingState.Partner != null)
+            pairingState.Partner.GetComponent<HumanPairingState>().ClearPairing();
+
+        pairingState.ClearPairing();
+
+        gameObject.SetActive(false);
+    }
+
 
 
 

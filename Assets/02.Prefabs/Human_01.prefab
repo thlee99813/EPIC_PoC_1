@@ -23,6 +23,10 @@ GameObject:
   - component: {fileID: 2494002488854920509}
   - component: {fileID: 1593231385164373472}
   - component: {fileID: -91363464953248003}
+  - component: {fileID: -8390183232580489806}
+  - component: {fileID: 7182974330678502088}
+  - component: {fileID: 8335663234701850675}
+  - component: {fileID: 8390304222420146444}
   m_Layer: 0
   m_Name: Human_01
   m_TagString: Untagged
@@ -180,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f43c2e9fb348b54eb6994238ceaa79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HumanEatAction
+  _priority: 100
   _hungerThreshold: 70
 --- !u!114 &3285273021779950434
 MonoBehaviour:
@@ -304,5 +309,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41eddf2df92b7ec48a2531bd9593bae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HumanPairingAction
-  _priority: 25
+  _priority: 55
   _pairingChance: 0.3
+  _reservedPairingPriority: 95
+  _minInterruptPriority: 100
+--- !u!114 &-8390183232580489806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571664086958160129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b94af2961dd9f44888bbd899c75a305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThreatSensor
+  _detectRange: 8
+--- !u!114 &7182974330678502088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571664086958160129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b2e3270354f1cd41add9a9a534dfd73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HumanFleeAction
+  _priority: 120
+  _fleeDistance: 8
+  _safeDistance: 10
+  _fleeChance: 0.65
+--- !u!114 &8335663234701850675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571664086958160129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e63c7ca9490cca40b2c3b1012674244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HumanAttackEnemyAction
+  _priority: 110
+  _attackRange: 1.1
+  _attackDamage: 10
+  _attackInterval: 1.2
+  _fightChance: 0.45
+--- !u!114 &8390304222420146444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571664086958160129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a299702142a50ad41ba77c57abaf3f89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WalkableGroundChecker
+  _walkableLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _groundCheckHeight: 10
+  _groundCheckDistance: 30

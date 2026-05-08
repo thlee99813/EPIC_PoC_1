@@ -6,6 +6,8 @@ public class HumanPairingAction : HumanAction
 {
     [SerializeField] private int _priority = 25;
     [SerializeField, Range(0f, 1f)] private float _pairingChance = 0.3f;
+    [SerializeField] private int _reservedPairingPriority = 95;
+
 
     private HumanPairingState _pairingState;
     private Vector3 _targetPosition;
@@ -14,8 +16,15 @@ public class HumanPairingAction : HumanAction
     private bool _isFoodPaid;
     private bool _hasBirthReservation;
 
-    public override int Priority => _priority;
+    public override int Priority => _pairingState != null && _pairingState.HasPairing ? _reservedPairingPriority : _priority;
     public override string StatusText => _isStaying ? HumanActionTextTable.PairingStaying : HumanActionTextTable.MovingToPairing;
+    [SerializeField] private int _minInterruptPriority = 100;
+
+public override bool CanBeInterrupted => true;
+public override int MinInterruptPriority => _minInterruptPriority;
+
+
+
 
     private void Awake()
     {
@@ -107,12 +116,23 @@ public class HumanPairingAction : HumanAction
 
     public override void End()
     {
-        if (_hasBirthReservation && _pairingState.TargetHouse != null)
-            _pairingState.TargetHouse.ReleaseBirthSlot();
+        CancelPairing();
 
         _isStaying = false;
         _isFoodPaid = false;
         _hasBirthReservation = false;
+    }
+    private void CancelPairing()
+    {
+        if (_hasBirthReservation && _pairingState.TargetHouse != null)
+            _pairingState.TargetHouse.ReleaseBirthSlot();
+
+        HumanAgent partner = _pairingState.Partner;
+
+        if (partner != null)
+            partner.GetComponent<HumanPairingState>().ClearPairing();
+
+        _pairingState.ClearPairing();
     }
 
     private void TryStartPairing()

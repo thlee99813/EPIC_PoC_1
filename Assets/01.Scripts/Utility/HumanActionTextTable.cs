@@ -22,8 +22,8 @@ public static class HumanActionTextTable
     public const string MovingToPairing = "짝과 머물 장소로 가는 중";
     public const string PairingStaying = "함께 머무는 중";
 
-
-
+    public const string Fleeing = "위험에서 도망치는 중";
+    public const string Fighting = "위협과 싸우는 중";
 
     public static string GetMovingToGatherText(ResourceType resourceType)
     {
