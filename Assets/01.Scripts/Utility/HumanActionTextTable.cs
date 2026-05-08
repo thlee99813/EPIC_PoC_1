@@ -19,6 +19,8 @@ public static class HumanActionTextTable
     public const string MovingToHouse = "집으로 가는 중";
     public const string MovingToReproduce = "집으로 돌아가는 중";
     public const string Reproducing = "아이를 낳는 중";
+    public const string MovingToPairing = "짝과 머물 장소로 가는 중";
+    public const string PairingStaying = "함께 머무는 중";
 
 
 

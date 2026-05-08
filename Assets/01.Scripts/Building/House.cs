@@ -43,6 +43,7 @@ public class House : MonoBehaviour
     }
 
 
+
     public Vector3 GetRandomAroundPosition(float groundY)
     {
         Vector2 randomCircle = Random.insideUnitCircle * _wanderRadius;

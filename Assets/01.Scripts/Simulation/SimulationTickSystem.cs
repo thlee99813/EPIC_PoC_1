@@ -24,6 +24,32 @@ public class SimulationTickSystem : MonoBehaviour
 
         return count;
     }
+    public HumanAgent GetAvailablePairingPartner(HumanAgent requester, HumanDefinition definition)
+    {
+        for (int i = 0; i < _agents.Count; i++)
+        {
+            HumanAgent agent = _agents[i];
+
+            if (agent == requester)
+                continue;
+
+            if (agent.Stats.IsDead)
+                continue;
+
+            if (!agent.Stats.CanReproduce(definition))
+                continue;
+
+            HumanPairingState pairingState = agent.GetComponent<HumanPairingState>();
+
+            if (pairingState.HasPairing)
+                continue;
+
+            return agent;
+        }
+
+        return null;
+    }
+
 
 
     public void Register(HumanAgent agent)
