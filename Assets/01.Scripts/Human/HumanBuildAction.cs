@@ -19,7 +19,7 @@ public class HumanBuildAction : HumanAction
         if (Agent.SettlementContext.GetAvailableBuildingSite(transform.position) != null)
             return true;
 
-        return Agent.SettlementContext.Storage.HasEnough(ResourceType.Wood, 1);
+        return Agent.SettlementContext.Storage.HasEnough(ResourceType.Wood, Agent.SettlementContext.HouseDefinition.WoodCost);
     }
 
     public override void Begin()

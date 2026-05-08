@@ -6,12 +6,18 @@ public class SettlementContext : MonoBehaviour
     [SerializeField] private ResourceNode[] _resourceNodes;
     [SerializeField] private SettlementBuildArea _buildArea;
     [SerializeField] private BuildingRegistry _buildingRegistry;
+    [SerializeField] private HouseRegistry _houseRegistry;
     [SerializeField] private BuildingSite _buildingSitePrefab;
+
     [SerializeField] private BuildingDefinition _houseDefinition;
     [SerializeField] private float _buildingMinDistance = 20f;
 
 
     public ResourceStorage Storage => _storage;
+    public HouseRegistry HouseRegistry => _houseRegistry;
+    public BuildingDefinition HouseDefinition => _houseDefinition;
+
+
 
     public ResourceNode GetNearestResource(Vector3 position, ResourceType resourceType)
     {
@@ -58,8 +64,9 @@ public class SettlementContext : MonoBehaviour
         }
 
         buildingSite = Instantiate(_buildingSitePrefab, buildPosition, Quaternion.identity);
-        buildingSite.Initialize(_houseDefinition, _buildingRegistry);
+        buildingSite.Initialize(_houseDefinition, _buildingRegistry, _houseRegistry);
         return true;
+
     }
 
 

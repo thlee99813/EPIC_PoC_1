@@ -12,6 +12,8 @@ public class HumanIdleAction : HumanAction
     private Vector3 _targetPosition;
     private bool _isResting;
     private float _restTimer;
+    private HumanHome _home;
+
 
 
     public override int Priority => _priority;
@@ -19,6 +21,10 @@ public class HumanIdleAction : HumanAction
 
     public override string StatusText => _isResting ? HumanActionTextTable.Resting : HumanActionTextTable.Wandering;
 
+    private void Awake()
+    {
+        _home = GetComponent<HumanHome>();
+    }
 
     public override bool CanRun()
     {
@@ -66,10 +72,18 @@ public class HumanIdleAction : HumanAction
     {
         _isResting = false;
 
+        if (_home != null && _home.HasHouse)
+        {
+            float currentY = transform.position.y;
+            _targetPosition = _home.House.GetRandomAroundPosition(currentY);
+            return;
+        }
+
         Vector2 randomCircle = Random.insideUnitCircle * _wanderRadius;
         Vector3 origin = Agent.SettlementContext.Storage.transform.position;
 
-        _targetPosition = origin + new Vector3(randomCircle.x, 0f, randomCircle.y);
+        _targetPosition = new Vector3(origin.x + randomCircle.x, transform.position.y, origin.z + randomCircle.y);
     }
+
 
 }

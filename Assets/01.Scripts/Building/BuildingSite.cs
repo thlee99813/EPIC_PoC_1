@@ -8,6 +8,8 @@ public class BuildingSite : MonoBehaviour
     [SerializeField] private float _currentBuildWork;
     [SerializeField] private bool _isCompleted;
     private BuildingRegistry _registry;
+    private HouseRegistry _houseRegistry;
+
 
 
     private bool _isCostPaid;
@@ -21,14 +23,16 @@ public class BuildingSite : MonoBehaviour
     {
         RefreshVisual();
     }
-    public void Initialize(BuildingDefinition definition, BuildingRegistry registry)
+    public void Initialize(BuildingDefinition definition, BuildingRegistry registry, HouseRegistry houseRegistry)
     {
         _definition = definition;
         _registry = registry;
+        _houseRegistry = houseRegistry;
         _registry.Register(this);
 
         RefreshVisual();
     }
+
 
 
     public bool CanBuild(ResourceStorage storage)
@@ -86,6 +90,8 @@ public class BuildingSite : MonoBehaviour
 
         _isCompleted = true;
         RefreshVisual();
+        RegisterHouse();
+
     }
 
     public Vector3 GetRandomInteractionPosition()
@@ -100,6 +106,16 @@ public class BuildingSite : MonoBehaviour
             _registry.Unregister(this);
     }
 
+    private void RegisterHouse()
+    {
+        if (_completedObject == null || _houseRegistry == null)
+            return;
+
+        House house = _completedObject.GetComponentInChildren<House>(true);
+
+        if (house != null)
+            _houseRegistry.Register(house);
+    }
 
     private void RefreshVisual()
     {
