@@ -26,7 +26,7 @@ public class HumanBuildAction : HumanAction
 
         int freeCapacity = houseCapacity - humanCount;
 
-        if (freeCapacity >= 1)
+        if (freeCapacity >= 2)
             return false;
 
         if (!Agent.SettlementContext.Storage.HasEnough(ResourceType.Wood, Agent.SettlementContext.HouseDefinition.WoodCost))

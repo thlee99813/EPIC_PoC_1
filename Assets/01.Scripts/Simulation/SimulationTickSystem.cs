@@ -203,6 +203,23 @@ public class SimulationTickSystem : MonoBehaviour
 
         enemy.SimulationTick(deltaTime);
     }
+    public int GetAliveHumans(List<HumanAgent> results)
+    {
+        results.Clear();
+
+        for (int i = 0; i < _agents.Count; i++)
+        {
+            HumanAgent agent = _agents[i];
+
+            if (agent.Stats.IsDead)
+                continue;
+
+            results.Add(agent);
+        }
+
+        return results.Count;
+    }
+
 
 
 }

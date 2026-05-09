@@ -120,6 +120,21 @@ public class MainMenuController : MonoBehaviour
         _mainMenuCore.SetActive(true);
     }
 
+    public void ReturnToMainFromMission()
+    {
+        _mainPanel.SetActive(true);
+        _mainMenuCore.SetActive(true);
+
+        _observePanel.SetActive(false);
+        _biblePanel.SetActive(false);
+        _caseDialogueView.Hide();
+        _doctrineConfirmView.Hide();
+
+        _currentActivePanel = null;
+        _isCaseDialogueOpen = false;
+    }
+
+
 
     private void TogglePanel(GameObject targetPanel)
     {
@@ -180,5 +195,6 @@ public class MainMenuController : MonoBehaviour
         _doctrineConfirmView.Hide();
         CloseCaseDialogue();
     }
+    
 
 }

@@ -5,6 +5,8 @@ public class FirstTabooEventSystem : MonoBehaviour
     [SerializeField] private SettlementContext _settlementContext;
     [SerializeField] private SimulationSpeedController _speedController;
     [SerializeField] private SimulationEventView _eventView;
+    [SerializeField] private DescensionMissionController _descensionMissionController;
+
 
     [SerializeField] private float _delayAfterObservation = 30f;
     [SerializeField] private int _requiredHumanCount = 6;
@@ -78,7 +80,9 @@ public class FirstTabooEventSystem : MonoBehaviour
     }
     private void OnEventClosed()
     {
-        _speedController.SetDefaultSpeed();
+        _eventView.Closed -= OnEventClosed;
+        _descensionMissionController.BeginMission();
     }
+
 
 }

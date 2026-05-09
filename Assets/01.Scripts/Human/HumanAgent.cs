@@ -7,14 +7,20 @@ public class HumanAgent : MonoBehaviour
     [SerializeField] private SettlementContext _settlementContext;
     [SerializeField] private SimulationTickSystem _tickSystem;
     [SerializeField] private string _currentActionName;
+    [SerializeField] private string _overrideStatusText;
+
+    private bool _hasStatsInitialized;
+    private bool _isDeathHandled;
+    private bool _isMissionControlled;
 
     public HumanDefinition Definition => _definition;
     public SettlementContext SettlementContext => _settlementContext;
     public SimulationTickSystem TickSystem => _tickSystem;
     public HumanRuntimeStats Stats => _stats;
-    public string CurrentActionName => _currentActionName;
-    private bool _hasStatsInitialized;
-    private bool _isDeathHandled;
+    public string CurrentActionName => string.IsNullOrEmpty(_overrideStatusText) ? _currentActionName : _overrideStatusText;
+    public bool IsMissionControlled => _isMissionControlled;
+
+    
 
     private HumanRuntimeStats _stats;
     private HumanAction[] _actions;
@@ -77,6 +83,7 @@ public class HumanAgent : MonoBehaviour
 
     public void SimulationTick(float deltaTime)
     {
+        if (_isMissionControlled) return;
         if (_stats.IsDead)
         {
             Die();
@@ -207,6 +214,24 @@ public class HumanAgent : MonoBehaviour
 
         gameObject.SetActive(false);
     }
+    public void SetMissionControlled(bool isMissionControlled)
+    {
+        _isMissionControlled = isMissionControlled;
+
+        if (_isMissionControlled && _currentAction != null)
+            EndCurrentAction();
+    }
+    public void SetOverrideStatusText(string statusText)
+    {
+        _overrideStatusText = statusText;
+    }
+
+    public void ClearOverrideStatusText()
+    {
+        _overrideStatusText = string.Empty;
+    }
+
+
 
 
 
