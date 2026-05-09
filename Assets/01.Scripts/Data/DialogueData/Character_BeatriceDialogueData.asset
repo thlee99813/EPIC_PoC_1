@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Character_BeatriceDialogueData
   m_EditorClassIdentifier: Assembly-CSharp::CaseDialogueData
   _name: "\uBCA0\uC544\uD2B8\uB9AC\uCCB4"
-  _characterSprite: {fileID: 21300000, guid: a486b82a4e2bfe940b99a36d21c6398e, type: 3}
-  _dialogueBoxSprite: {fileID: 895447953, guid: 1bee5d51f3920324781bcb3c58354b09, type: 3}
+  _characterSprite: {fileID: 21300000, guid: e32fb7ac079568a4584ae31891959e45, type: 3}
+  _dialogueBoxSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   _dialogueSequence: {fileID: 11400000, guid: 418d6a4452ad6eb42a36679c29bed8b1, type: 2}
   _doctrineType: 2
   _doctrineProposalText: "\uAD6C\uC6D0 \uAD50\uB9AC\uB97C \uC120\uD0DD\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\r\n\r\n-

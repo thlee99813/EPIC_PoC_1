@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Character_ReticiaDialogueData
   m_EditorClassIdentifier: Assembly-CSharp::CaseDialogueData
   _name: "\uB808\uD2F0\uC2DC\uC544"
-  _characterSprite: {fileID: 21300000, guid: 8868e44ffd0298b489ec1b02c0dc6d5c, type: 3}
-  _dialogueBoxSprite: {fileID: 895447953, guid: 1bee5d51f3920324781bcb3c58354b09, type: 3}
+  _characterSprite: {fileID: 21300000, guid: dd6c99f3fc6eb0445aad5761b7c5bcfb, type: 3}
+  _dialogueBoxSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   _dialogueSequence: {fileID: 11400000, guid: b82554c0d8b6c0d4bae9b5627bae6763, type: 2}
   _doctrineType: 1
   _doctrineProposalText: "\uC9C8\uC11C \uAD50\uB9AC\uB97C \uC120\uD0DD\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\r\n\r\n-
